@@ -527,8 +527,11 @@ export default function Home() {
           },
           firstDrawLayer,
         );
+        const compactViewport = window.matchMedia("(max-width: 900px)").matches;
         map.fitBounds(rendered.bounds, {
-          padding: { top: 104, right: 390, bottom: 96, left: 350 },
+          padding: compactViewport
+            ? { top: 82, right: 24, bottom: 78, left: 24 }
+            : { top: 104, right: 390, bottom: 96, left: 350 },
           duration: 900,
           maxZoom: 17,
         });
@@ -618,7 +621,7 @@ export default function Home() {
 
   const deleteSelection = () => {
     if (!drawRef.current || !selectedId) return;
-    drawRef.current.trash();
+    drawRef.current.delete(selectedId);
     setSelectedId(null);
     syncLines();
   };
@@ -732,7 +735,8 @@ export default function Home() {
       }}
       onDragOver={(event) => event.preventDefault()}
       onDragLeave={(event) => {
-        if (event.currentTarget === event.target) setDragActive(false);
+        const nextTarget = event.relatedTarget as Node | null;
+        if (!nextTarget || !event.currentTarget.contains(nextTarget)) setDragActive(false);
       }}
       onDrop={handleDrop}
     >
@@ -765,6 +769,14 @@ export default function Home() {
         </nav>
 
         <div className="header-actions">
+          <label className="mobile-basemap-control">
+            <span className="visually-hidden">Choose basemap</span>
+            <select value={basemap} onChange={(event) => switchBasemap(event.target.value as BasemapId)}>
+              {BASEMAPS.map((option) => (
+                <option key={option.id} value={option.id}>{option.label}</option>
+              ))}
+            </select>
+          </label>
           <span className={`map-status ${mapReady ? "ready" : ""}`}>
             <i /> {mapReady ? "Map ready" : "Starting map"}
           </span>
@@ -816,6 +828,7 @@ export default function Home() {
               className="visually-hidden"
               type="file"
               accept=".tif,.tiff,image/tiff"
+              aria-label="Choose GeoTIFF file"
               onChange={(event) => {
                 const file = event.target.files?.[0];
                 if (file) addImageryToMap(file);
@@ -864,6 +877,7 @@ export default function Home() {
               className="visually-hidden"
               type="file"
               accept=".tif,.tiff,image/tiff"
+              aria-label="Choose replacement GeoTIFF file"
               onChange={(event) => {
                 const file = event.target.files?.[0];
                 if (file) addImageryToMap(file);
