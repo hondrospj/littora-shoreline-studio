@@ -114,7 +114,6 @@ input:focus-visible {
 .basemap-switcher,
 .aligned-row,
 .icon-actions,
-.drawing-guide,
 .line-list-heading,
 .selection-actions,
 .export-heading,
@@ -144,7 +143,7 @@ input:focus-visible {
 }
 
 .brand-word {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.035em;
 }
@@ -153,7 +152,7 @@ input:focus-visible {
   padding-left: 10px;
   color: rgba(255, 255, 255, 0.5);
   border-left: 1px solid rgba(255, 255, 255, 0.16);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -176,7 +175,7 @@ input:focus-visible {
   border: 0;
   border-radius: 9px;
   background: transparent;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: background 160ms ease, color 160ms ease, transform 160ms ease;
@@ -206,7 +205,7 @@ input:focus-visible {
   align-items: center;
   gap: 7px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -245,9 +244,9 @@ input:focus-visible {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 18px;
-  background: rgba(246, 246, 240, 0.95);
-  box-shadow: 0 24px 55px rgba(7, 10, 8, 0.25);
-  backdrop-filter: blur(20px) saturate(115%);
+  background: rgba(249, 249, 245, 0.98);
+  box-shadow: 0 18px 45px rgba(7, 10, 8, 0.2);
+  backdrop-filter: blur(16px);
 }
 
 .imagery-panel {
@@ -268,31 +267,30 @@ input:focus-visible {
 
 .panel-heading h1,
 .panel-heading h2 {
-  margin: 7px 0 0;
+  margin: 0;
   color: var(--ink);
-  font-size: 27px;
-  line-height: 0.96;
-  letter-spacing: -0.055em;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.05em;
 }
 
 .panel-heading h2 {
-  font-size: 25px;
+  font-size: 30px;
 }
 
-.eyebrow {
+.eyebrow,
+.section-title {
   display: block;
   color: #7a7e72;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.panel-lede {
-  margin: 15px 0 18px;
-  color: #65685f;
-  font-size: 12px;
-  line-height: 1.55;
+.panel-heading + .upload-zone,
+.panel-heading + .imagery-card {
+  margin-top: 24px;
 }
 
 .upload-zone {
@@ -307,9 +305,7 @@ input:focus-visible {
   color: var(--ink);
   border: 1px dashed #a3a69d;
   border-radius: 14px;
-  background:
-    radial-gradient(circle at 50% 22%, rgba(220, 255, 69, 0.24), transparent 38%),
-    rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
 }
@@ -329,12 +325,7 @@ input:focus-visible {
 
 .upload-zone strong {
   margin-top: 2px;
-  font-size: 13px;
-}
-
-.upload-zone > span:last-child {
-  color: #777b70;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .upload-icon {
@@ -358,7 +349,7 @@ input:focus-visible {
   border: 0;
   border-bottom: 1px solid var(--line);
   background: transparent;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -384,7 +375,7 @@ input:focus-visible {
   align-items: center;
   gap: 7px;
   color: var(--success);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -420,7 +411,7 @@ input:focus-visible {
   display: block;
   margin: 13px 0 14px;
   overflow: hidden;
-  font-size: 12px;
+  font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -443,7 +434,7 @@ input:focus-visible {
 .metadata-grid dt {
   margin-bottom: 4px;
   color: #85897e;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -454,7 +445,7 @@ input:focus-visible {
   overflow: hidden;
   color: #353831;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -470,7 +461,7 @@ input:focus-visible {
   justify-content: space-between;
   margin-bottom: 7px;
   color: #73776d;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -490,24 +481,7 @@ input:focus-visible {
 .replace-button {
   margin-top: 7px;
   border-bottom: 0;
-  font-size: 10px;
-}
-
-.support-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 16px;
-  color: #7c8075;
-  border-top: 1px solid var(--line);
-  font-size: 9px;
-  line-height: 1.5;
-}
-
-.support-note svg {
-  flex: 0 0 auto;
-  margin-top: 1px;
+  font-size: 12px;
 }
 
 .draw-button {
@@ -523,7 +497,7 @@ input:focus-visible {
   border-radius: 12px;
   background: var(--accent);
   box-shadow: 0 7px 0 #24281e;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
@@ -546,53 +520,11 @@ input:focus-visible {
   box-shadow: 0 7px 0 #050604;
 }
 
-.draw-button kbd {
-  margin-left: auto;
-  margin-right: 9px;
-  padding: 3px 6px;
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 5px;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 8px;
-}
-
-.drawing-guide {
-  align-items: flex-start;
-  gap: 10px;
-  margin: 18px 0;
-  padding: 11px;
-  border: 1px solid var(--line);
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.46);
-}
-
-.guide-icon {
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  color: #464a42;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.drawing-guide p {
-  margin: 0;
-  color: #70746a;
-  font-size: 9px;
-  line-height: 1.5;
-}
-
-.drawing-guide strong {
-  color: #373a34;
-}
-
 .line-list-heading {
+  margin-top: 24px;
   justify-content: space-between;
   color: #7b7f75;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -651,7 +583,7 @@ input:focus-visible {
 
 .line-copy strong {
   overflow: hidden;
-  font-size: 10px;
+  font-size: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -659,7 +591,7 @@ input:focus-visible {
 .line-copy small {
   color: #878b81;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .line-chevron {
@@ -682,11 +614,7 @@ input:focus-visible {
 .empty-lines strong {
   margin-top: 2px;
   color: #676b62;
-  font-size: 10px;
-}
-
-.empty-lines span {
-  font-size: 8px;
+  font-size: 13px;
 }
 
 .selection-actions {
@@ -696,7 +624,7 @@ input:focus-visible {
   color: #7b7f75;
   border-radius: 8px;
   background: rgba(220, 255, 69, 0.2);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -709,7 +637,7 @@ input:focus-visible {
   color: var(--danger);
   border: 0;
   background: transparent;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
@@ -744,7 +672,7 @@ input:focus-visible {
   display: block;
   margin-top: 4px;
   color: #4d5148;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .clear-link {
@@ -752,7 +680,7 @@ input:focus-visible {
   color: #8c4d45;
   border: 0;
   background: transparent;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
@@ -797,22 +725,15 @@ input:focus-visible {
 }
 
 .export-actions strong {
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .export-actions small {
   overflow: hidden;
   color: #8c9086;
-  font-size: 7px;
+  font-size: 9px;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.export-block > p {
-  margin: 9px 0 0;
-  color: #92968d;
-  font-size: 7px;
-  line-height: 1.45;
 }
 
 .coordinate-readout {
@@ -830,7 +751,7 @@ input:focus-visible {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
   backdrop-filter: blur(10px);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
   transform: translateX(-50%);
 }
@@ -853,7 +774,7 @@ input:focus-visible {
   border-radius: 99px;
   background: var(--accent);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   transform: translateX(-50%);
 }
@@ -908,7 +829,7 @@ input:focus-visible {
 
 .toast p {
   margin: 0;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -957,12 +878,7 @@ input:focus-visible {
 }
 
 .drop-overlay strong {
-  font-size: 16px;
-}
-
-.drop-overlay span {
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 10px;
+  font-size: 18px;
 }
 
 .maplibregl-ctrl-bottom-right {
@@ -1022,22 +938,12 @@ input:focus-visible {
     padding: 18px;
   }
 
-  .panel-lede,
-  .drawing-guide {
-    margin-top: 11px;
-    margin-bottom: 11px;
-  }
-
   .upload-zone {
     min-height: 118px;
   }
 
   .line-list {
     max-height: 118px;
-  }
-
-  .support-note {
-    display: none;
   }
 }
 
@@ -1118,7 +1024,7 @@ input:focus-visible {
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.08);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
   }
 
@@ -1150,10 +1056,6 @@ input:focus-visible {
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-  }
-
-  .support-note {
-    margin-top: 16px;
   }
 
   .line-list {
@@ -1188,7 +1090,7 @@ input:focus-visible {
 
 @media (max-width: 520px) {
   .brand-word {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .topbar {
@@ -1197,7 +1099,7 @@ input:focus-visible {
 
   .panel-heading h1,
   .panel-heading h2 {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .coordinate-readout span:nth-of-type(2) {

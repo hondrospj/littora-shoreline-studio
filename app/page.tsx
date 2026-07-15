@@ -2,7 +2,6 @@
 
 import {
   ChevronDown,
-  CircleHelp,
   Download,
   Eye,
   EyeOff,
@@ -13,7 +12,6 @@ import {
   Map as MapIcon,
   MapPinned,
   Menu,
-  MousePointer2,
   Plus,
   Route,
   Satellite,
@@ -599,7 +597,7 @@ export default function Home() {
     drawRef.current.changeMode("draw_line_string");
     setIsDrawing(true);
     setMobilePanel(null);
-    setNotice({ tone: "info", text: "Click along the shoreline. Double-click or press Enter to finish." });
+    setNotice({ tone: "info", text: "Drawing started." });
   };
 
   const finishDrawing = () => {
@@ -801,15 +799,11 @@ export default function Home() {
 
       <aside className={`panel imagery-panel ${mobilePanel === "imagery" ? "mobile-open" : ""}`}>
         <div className="panel-heading">
-          <div>
-            <span className="eyebrow">01 / Imagery</span>
-            <h1>Place your coast.</h1>
-          </div>
+          <h1>Imagery</h1>
           <button className="panel-close" type="button" onClick={() => setMobilePanel(null)} aria-label="Close panel">
             <X size={18} />
           </button>
         </div>
-        <p className="panel-lede">Drop a georeferenced TIFF and it lands at its embedded coordinates.</p>
 
         {!imagery ? (
           <>
@@ -821,7 +815,6 @@ export default function Home() {
             >
               <span className="upload-icon"><Upload size={21} /></span>
               <strong>{loadingImagery ? "Reading GeoTIFF…" : "Upload GeoTIFF"}</strong>
-              <span>.tif or .tiff · click or drop</span>
             </button>
             <input
               ref={fileInputRef}
@@ -836,7 +829,7 @@ export default function Home() {
             />
             <button className="demo-button" type="button" onClick={loadDemo} disabled={loadingImagery || !mapReady}>
               <Sparkles size={15} />
-              Try the Cape May sample
+              Cape May sample
               <span>↗</span>
             </button>
           </>
@@ -855,8 +848,6 @@ export default function Home() {
             <dl className="metadata-grid">
               <div><dt>CRS</dt><dd>{imagery.epsg ? `EPSG:${imagery.epsg}` : "Detected"}</dd></div>
               <div><dt>Pixels</dt><dd>{imagery.width} × {imagery.height}</dd></div>
-              <div><dt>Center</dt><dd>{imagery.center[1].toFixed(4)}°, {imagery.center[0].toFixed(4)}°</dd></div>
-              <div><dt>Placement</dt><dd>{imagery.placement === "Embedded georeference" ? "GeoTIFF tags" : "Filename"}</dd></div>
             </dl>
             <label className="opacity-control">
               <span>Image opacity <b>{Math.round(imageryOpacity * 100)}%</b></span>
@@ -886,18 +877,11 @@ export default function Home() {
           </section>
         )}
 
-        <div className="support-note">
-          <CircleHelp size={15} />
-          <span>Reads WGS 84, Web Mercator, and WGS 84 UTM. Large rasters are safely downsampled for display.</span>
-        </div>
       </aside>
 
       <aside className={`panel lines-panel ${mobilePanel === "lines" ? "mobile-open" : ""}`}>
         <div className="panel-heading compact">
-          <div>
-            <span className="eyebrow">02 / Digitize</span>
-            <h2>Shorelines</h2>
-          </div>
+          <h2>Shorelines</h2>
           <button className="panel-close" type="button" onClick={() => setMobilePanel(null)} aria-label="Close panel">
             <X size={18} />
           </button>
@@ -905,18 +889,13 @@ export default function Home() {
 
         {isDrawing ? (
           <button type="button" className="draw-button finish" onClick={finishDrawing}>
-            <Focus size={18} /> Finish current line <kbd>Enter</kbd>
+            <Focus size={18} /> Finish line
           </button>
         ) : (
           <button type="button" className="draw-button" onClick={startDrawing} disabled={!mapReady}>
             <Plus size={18} /> New shoreline
           </button>
         )}
-
-        <div className="drawing-guide">
-          <div className="guide-icon"><MousePointer2 size={16} /></div>
-          <p><strong>Click to add vertices.</strong> Double-click to finish. Select a line to move points; select a vertex and press Delete to remove it.</p>
-        </div>
 
         <div className="line-list-heading">
           <span>Working layer</span>
@@ -948,8 +927,7 @@ export default function Home() {
           ) : (
             <div className="empty-lines">
               <SquarePen size={22} />
-              <strong>No lines yet</strong>
-              <span>Your digitized shorelines will collect here.</span>
+              <strong>No shorelines</strong>
             </div>
           )}
         </div>
@@ -968,8 +946,8 @@ export default function Home() {
         <section className="export-block">
           <div className="export-heading">
             <div>
-              <span className="eyebrow">03 / Export</span>
-              <strong>{lines.length ? `${formatDistance(totalLength)} digitized` : "Ready when you are"}</strong>
+              <span className="section-title">Export</span>
+              <strong>{lines.length ? `${formatDistance(totalLength)} total` : "No lines"}</strong>
             </div>
             {lines.length > 0 && <button type="button" className="clear-link" onClick={clearLines}>Clear</button>}
           </div>
@@ -985,7 +963,6 @@ export default function Home() {
               <Download size={15} />
             </button>
           </div>
-          <p>Exports use WGS 84 longitude/latitude and include all visible shoreline lines.</p>
         </section>
       </aside>
 
@@ -998,7 +975,7 @@ export default function Home() {
       </div>
 
       {isDrawing && (
-        <div className="drawing-pill"><span /> Drawing shoreline · click to add a point</div>
+        <div className="drawing-pill"><span /> Drawing</div>
       )}
 
       {notice && (
@@ -1011,7 +988,7 @@ export default function Home() {
 
       {dragActive && (
         <div className="drop-overlay">
-          <div><Upload size={28} /><strong>Drop GeoTIFF to align</strong><span>We’ll read its embedded map coordinates</span></div>
+          <div><Upload size={28} /><strong>Drop GeoTIFF</strong></div>
         </div>
       )}
     </main>
