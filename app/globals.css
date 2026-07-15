@@ -81,6 +81,10 @@ input:focus-visible {
     #283a3e;
 }
 
+.workspace.is-drawing .maplibregl-canvas {
+  cursor: crosshair !important;
+}
+
 .map-vignette {
   z-index: 1;
   pointer-events: none;

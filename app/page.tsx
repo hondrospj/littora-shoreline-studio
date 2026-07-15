@@ -417,6 +417,7 @@ export default function Home() {
         maxZoom: 22,
         attributionControl: {},
       });
+      map.doubleClickZoom.disable();
       const markMapReady = () => {
         if (!cancelled) setMapReady(true);
       };
@@ -732,7 +733,7 @@ export default function Home() {
 
   return (
     <main
-      className={`workspace ${dragActive ? "is-dragging" : ""}`}
+      className={`workspace ${dragActive ? "is-dragging" : ""} ${isDrawing ? "is-drawing" : ""}`}
       onDragEnter={(event) => {
         event.preventDefault();
         setDragActive(true);
