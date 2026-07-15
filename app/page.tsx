@@ -417,6 +417,11 @@ export default function Home() {
         maxZoom: 22,
         attributionControl: {},
       });
+      const markMapReady = () => {
+        if (!cancelled) setMapReady(true);
+      };
+      map.once("style.load", markMapReady);
+      map.once("load", markMapReady);
       const draw = new (MapboxDraw as any)({
         displayControlsDefault: false,
         keybindings: true,
@@ -427,6 +432,8 @@ export default function Home() {
       map.addControl(new maplibre.NavigationControl({ showCompass: false }), "bottom-right");
       mapRef.current = map;
       drawRef.current = draw;
+
+      if (map.isStyleLoaded() || map.loaded()) markMapReady();
 
       const handleCreate = (event: any) => {
         for (const feature of event.features ?? []) {
@@ -451,7 +458,6 @@ export default function Home() {
       };
       const handleZoom = () => setZoom(map.getZoom());
 
-      map.on("load", () => setMapReady(true));
       map.on("draw.create", handleCreate);
       map.on("draw.update", syncLines);
       map.on("draw.delete", syncLines);
