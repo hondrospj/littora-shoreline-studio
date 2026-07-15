@@ -408,6 +408,29 @@ export default function Home() {
         drawClasses.ATTRIBUTION = "maplibregl-ctrl-attrib";
       }
 
+      const defaultModes = (MapboxDraw as any).modes;
+      const undoableLineMode = {
+        ...defaultModes.draw_line_string,
+        onKeyDown(this: any, state: any, event: KeyboardEvent) {
+          const undoPressed = (event.metaKey || event.ctrlKey) && !event.shiftKey && event.key.toLowerCase() === "z";
+          if (!undoPressed) return defaultModes.draw_line_string.onKeyDown?.call(this, state, event);
+          event.preventDefault();
+          event.stopPropagation();
+          if (state.currentVertexPosition <= 0) {
+            setNotice({ tone: "info", text: "No vertex to undo." });
+            return;
+          }
+
+          const cursorCoordinate = state.line.coordinates[state.currentVertexPosition];
+          state.line.removeCoordinate(`${state.currentVertexPosition - 1}`);
+          state.currentVertexPosition -= 1;
+          if (cursorCoordinate) {
+            state.line.updateCoordinate(state.currentVertexPosition, cursorCoordinate[0], cursorCoordinate[1]);
+          }
+          setNotice({ tone: "info", text: "Last vertex undone." });
+        },
+      };
+
       const map = new maplibre.Map({
         container: mapContainerRef.current,
         style: BASE_STYLE as any,
@@ -427,6 +450,7 @@ export default function Home() {
         displayControlsDefault: false,
         keybindings: true,
         touchEnabled: true,
+        modes: { ...defaultModes, draw_line_string: undoableLineMode },
         styles: DRAW_STYLES,
       });
       map.addControl(draw);
@@ -631,7 +655,7 @@ export default function Home() {
     syncLines();
   };
 
-  const removeLastVertex = () => {
+  const removeLastVertex = useCallback(() => {
     const draw = drawRef.current;
     if (!draw || !selectedId) return;
     const feature = draw
@@ -649,7 +673,20 @@ export default function Home() {
     draw.changeMode("direct_select", { featureId: selectedId });
     syncLines();
     setNotice({ tone: "info", text: "Last vertex removed from the selected shoreline." });
-  };
+  }, [selectedId, syncLines]);
+
+  useEffect(() => {
+    const handleUndo = (event: KeyboardEvent) => {
+      const undoPressed = (event.metaKey || event.ctrlKey) && !event.shiftKey && event.key.toLowerCase() === "z";
+      if (!undoPressed || !selectedId || drawRef.current?.getMode() === "draw_line_string") return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("input, select, textarea, [contenteditable='true']")) return;
+      event.preventDefault();
+      removeLastVertex();
+    };
+    window.addEventListener("keydown", handleUndo);
+    return () => window.removeEventListener("keydown", handleUndo);
+  }, [removeLastVertex, selectedId]);
 
   const clearLines = () => {
     if (!drawRef.current || !lines.length) return;
